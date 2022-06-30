@@ -14,96 +14,97 @@ class MainContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
-      width: size.width * 1 ,
+      width: size.width * 1,
       color: Colors.grey[100],
-      child: Column(
-        children: [
-          Container(
-            height: 20.h,
-            width: size.width * 1,
-            color: Colors.white,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 10.sp,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 20.h,
+              width: size.width * 1,
+              color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 10.sp,
+                ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Welcome,',
+                            style: welcome,
+                          ),
+                          SizedBox(
+                            width: 0.3.w,
+                          ),
+                          Text(
+                            'EquitySoft',
+                            style: welcome,
+                          ),
+                          SizedBox(
+                            width: 0.2.w,
+                          ),
+                          Text(
+                            '🎉',
+                            style: welcome,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'See what is the status of your Blog Today !',
+                        style: wcsubtitle,
+                      ),
+                    ]),
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            Container(
+              margin: EdgeInsets.all(5.sp),
+              height: 40.h,
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Welcome,',
-                          style: welcome,
-                        ),
-                        SizedBox(
-                          width: 0.3.w,
-                        ),
-                        Text(
-                          'EquitySoft',
-                          style: welcome,
-                        ),
-                        SizedBox(
-                          width: 0.2.w,
-                        ),
-                        Text(
-                          '🎉',
-                          style: welcome,
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 5.w,
+                      ),
+                      child: ViewCount(
+                          icon: Icons.remove_red_eye,
+                          numbers: '100',
+                          perday: 'Per Day',
+                          views: 'Views'),
                     ),
-                    Text(
-                      'See what is the status of your Blog Today !',
-                      style: wcsubtitle,
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 5.w,
+                      ),
+                      child: ViewCount(
+                          icon: Icons.timer,
+                          numbers: '5000',
+                          perday: 'Per minutes',
+                          views: 'Visits'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 5.w,
+                        right: 5.w,
+                      ),
+                      child: ViewCount(
+                          icon: Icons.receipt,
+                          numbers: '200',
+                          perday: 'Per Day',
+                          views: 'Daily Readers'),
                     ),
                   ]),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.all(5.sp),
-            height: 40.h,
-            decoration: BoxDecoration(
-              color: Colors.blue[50],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 5.w,
-                    ),
-                    child: ViewCount(
-                        icon: Icons.remove_red_eye,
-                        numbers: '100',
-                        perday: 'Per Day',
-                        views: 'Views'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 5.w,
-                    ),
-                    child: ViewCount(
-                        icon: Icons.timer,
-                        numbers: '5000',
-                        perday: 'Per minutes',
-                        views: 'Visits'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 5.w,
-                      right: 5.w,
-                    ),
-                    child: ViewCount(
-                        icon: Icons.receipt,
-                        numbers: '200',
-                        perday: 'Per Day',
-                        views: 'Daily Readers'),
-                  ),
-                ]),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

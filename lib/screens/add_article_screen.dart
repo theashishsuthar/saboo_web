@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -111,11 +113,13 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                         }).toList(),
                         onChanged: (val) {
                           setState(() {
+                            var index = articlelist.length;
                             fieldtype = val as String?;
 
                             if (fieldtype == 'Description') {
                               articlelist.add(
                                 Article(
+                                  index,
                                   1,
                                   'Enter Description',
                                   4,
@@ -133,41 +137,50 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                                 ),
                               );
 
+                              for (var i = 0; i < articlelist.length; i++) {
+                                log(articlelist[i].toString());
+                              }
+
                               // logger.i(quoteController.masterid.value);
 
                               return;
                             }
                             if (fieldtype == 'Image') {
-                              articlelist.add(
-                                Article(
-                                  2,
-                                  'Select Image',
-                                  1,
-                                  true,
-                                  IconButton(
-                                    onPressed: () async {
-                                      var image = await filepickerController
-                                          .pickImage();
-                                      setState(() {
-                                        mediaimage = image;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.link,
-                                      color: Colors.purple,
-                                    ),
+                              Article article = Article(
+                                index,
+                                2,
+                                'Select Image',
+                                1,
+                                true,
+                                IconButton(
+                                  onPressed: () async {
+                                    var image =
+                                        await filepickerController.pickImage();
+                                    setState(() {
+                                      articlelist[index].media = image;
+                                    });
+                                  },
+                                  icon: const Icon(
+                                    Icons.link,
+                                    color: Colors.purple,
                                   ),
-                                  mediaimage,
-                                  TextEditingController(),
-                                  HtmlEditorController(),
                                 ),
+                                mediaimage,
+                                TextEditingController(),
+                                HtmlEditorController(),
                               );
+                              articlelist.add(article);
+
+                              for (var i = 0; i < articlelist.length; i++) {
+                                log(articlelist[i].toString());
+                              }
 
                               return;
                             }
                             if (fieldtype == 'Video') {
                               articlelist.add(
                                 Article(
+                                  index,
                                   3,
                                   'Pick Video',
                                   1,
@@ -181,7 +194,7 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                                       var video = await filepickerController
                                           .pickVideo();
                                       setState(() {
-                                        mediavideo = video;
+                                        articlelist[index].media = video;
                                       });
                                     },
                                   ),
@@ -190,7 +203,9 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                                   HtmlEditorController(),
                                 ),
                               );
-
+                              for (var i = 0; i < articlelist.length; i++) {
+                                log(articlelist[i].toString());
+                              }
                               return;
                             }
                           });
@@ -361,23 +376,23 @@ class _AddArticleScreenState extends State<AddArticleScreen> {
                           showToast('Enter Title Level');
                           return;
                         }
-                        quoteController.addTitle(
+                        quoteController
+                            .addTitle(
                           titleController.text,
                           titleLevelController.text,
-                        );
+                        )
+                            .whenComplete(() {
+                          log(quoteController.masterid.value,
+                              name: 'On_Add_Article_screen');
+                        });
                         quoteController.update();
-
 
                         for (var i = 0; i < articlelist.length; i++) {
                           quoteController.addElement(
                             quoteController.masterid.value,
-                            articlelist[i].type == 1 ? '1' : '2',
+                            articlelist[i].type.toString(),
                             '$i',
-                            articlelist[i].type == 1
-                                ? await articlelist[i]
-                                    .htmlEditorController
-                                    .getText()
-                                : 'Hello',
+                            i.toString(),
                           );
                         }
 
